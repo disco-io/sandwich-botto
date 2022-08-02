@@ -50,6 +50,6 @@ async def on_message(message):
   if message.content.startswith('>pizza'):
     await message.channel.send('( ⋋_⋌ ):anger: how offensive 。。。')
   if message.content.startswith('>burger'):
-    await message.channel.send("( ⋋_⋌ ):anger: we're healthier ya know 。。。")
+    await message.channel.send("( ⋋_⋌ ):anger: we're healhier ya know 。。。")
 
 client.run(os.environ['TOKEN'])
