@@ -1,5 +1,6 @@
 import discord
 import random
+import asyncio
 import os
 
 client = discord.Client()
@@ -16,12 +17,23 @@ veggies = ['basil', 'coleslaw', 'diced celery', 'jalepeno' 'pickles', 'lettuce',
 spreads = ['blue cheese dressing', 'guacamole', 'honey mustard', 'hot sauce', 'mayonnaise', 'mustard', 'ranch', 'smoky bbq', 'spicy mayo', 'sweet onion dip', 'ketchup']
 
 #in the kitchen
+def choose_bread():
+  return (':bread: **bread:** ' + random.choice(bread))
+
+def choose_meat():
+  return (':cut_of_meat: **meat:** ' + random.choice(meat))
+
+def choose_cheese():
+  return (':cheese: **cheese:** ' + random.choice(cheese))
+
+def choose_veggies():
+  return (':leafy_green: **veggie:** ' + random.choice(veggies))
+
+def choose_spreads():
+    return (':tomato: **spread/sauce:** ' + random.choice(spreads))
+          
 def make_sandwich():
- return (':bread: **bread:** ' + random.choice(bread) \
-         + '\n:cut_of_meat: **meat:** ' + random.choice(meat) \
-         + '\n:cheese: **cheese:** ' + random.choice(cheese) \
-         + '\n:leafy_green: **veggie:** ' + random.choice(veggies) \
-         + '\n:salt: **spread/sauce:** ' + random.choice(spreads))
+  return (choose_bread() + choose_meat() + choose_cheese() + choose_veggies() + choose_spreads())
   
 #online message
 @client.event
@@ -44,6 +56,9 @@ async def on_message(message):
 
   #sandwich commands
   if message.content.startswith('>sandwich'):
+    await message.channel.send('sandwich botto at your service! ( ´ ▽ `)7 \nplease react to select your preferred type of toppings & quantity.')
+
+  if message.content.startswith('>randomize'):
     await message.channel.send(":sandwich: here's your sandwich!\n \n" + make_sandwich())
 
   #angry sandwich
@@ -52,4 +67,18 @@ async def on_message(message):
   if message.content.startswith('>burger'):
     await message.channel.send("( ⋋_⋌ ):anger: we're healhier ya know 。。。")
 
+@client.event
+async def on_reaction_add(reaction, user):
+  channel = reaction.message.channel
+  if 'react' in reaction.message.content and reaction.emoji == '🍞':
+    await channel.send(choose_bread())
+  if 'react' in reaction.message.content and reaction.emoji == '🥩':
+    await channel.send(choose_meat())
+  if 'react' in reaction.message.content and reaction.emoji == '🧀':
+    await channel.send(choose_cheese())
+  if 'react' in reaction.message.content and reaction.emoji == '🥬':
+    await channel.send(choose_veggies())
+  if 'react' in reaction.message.content and reaction.emoji == '🍅':
+    await channel.send(choose_spreads())
+    
 client.run(os.environ['TOKEN'])
