@@ -5,19 +5,21 @@ import os
 bread_count = 0
 meat_count = 0
 cheese_count = 0
-veggies_count = 0
+veggie_count = 0
 spread_count = 0
+
+reactions = ['🍞', '🥩', '🧀', '🥬', '🍅']
 
 client = discord.Client()
 
 #fillings menu
-bread = [ 'bagel', 'baguette', 'biscuit', 'brioche', 'brown bread', 'challah', 'ciabatta', 'cornbread', 'croissant', 'english muffin', 'focaccia', 'grissini', 'hawaiian roll', 'potato bread', 'rye bread', 'multi-grain bread', 'pumpernickel', 'smoked salmon', 'sourdough bread', 'white bread', 'whole wheat bread']
+bread = [ 'artisan roll', 'bagel', 'baguette', 'biscuit', 'brioche', 'brown bread', 'challah', 'ciabatta', 'cornbread', 'croissant', 'english muffin', 'focaccia', 'grissini', 'hawaiian roll', 'potato bread', 'rye bread', 'multi-grain bread', 'pumpernickel', 'smoked salmon', 'sourdough bread', 'white bread', 'whole wheat bread']
 
 meat = ['bacon', 'black forest ham', 'bologna sausage', 'buffalo chicken', 'grilled chicken breast', 'honey ham', 'meatballs', 'pepperoni', 'pulled pork' 'roast beef', 'shredded chicken''steak', 'tuna', 'tuna', 'turkey salami','turkey breast']
 
 cheese = ['american cheese', 'brie', 'cheddar', 'gouda', 'havarti', 'parmesan', 'pepper jack', 'provolone', 'swiss', 'mozzarella']
 
-veggies = ['basil', 'coleslaw', 'diced celery', 'jalepeno' 'pickles', 'lettuce', 'olives', 'red onions', 'red peppers', 'sauteéd mushrooms', 'shredded carrots', 'sliced cucmbers', 'spinach', 'white onions','tomatoes']
+veggie = ['basil', 'coleslaw', 'diced celery', 'jalepeno' 'pickles', 'lettuce', 'olives', 'red onions', 'red peppers', 'sauteéd mushrooms', 'shredded carrots', 'sliced cucmbers', 'spinach', 'white onions','tomatoes']
 
 spreads = ['blue cheese dressing', 'guacamole', 'honey mustard', 'hot sauce', 'hummus', 'mayonnaise', 'mustard', 'ranch', 'smoky bbq', 'spicy mayo', 'sweet onion dip', 'ketchup']
 
@@ -31,18 +33,18 @@ def choose_meat():
 def choose_cheese():
   return (':cheese: **cheese:** ' + random.choice(cheese))
 
-def choose_veggies():
-  return (':leafy_green: **veggie:** ' + random.choice(veggies))
+def choose_veggie():
+  return (':leafy_green: **veggie:** ' + random.choice(veggie))
 
-def choose_spreads():
+def choose_spread():
     return (':tomato: **spread:** ' + random.choice(spreads))
           
 def make_sandwich():
   return (choose_bread() + '\n' \
           + choose_meat() + '\n' \
           + choose_cheese() + '\n' \
-          + choose_veggies() + '\n' \
-          + choose_spreads())
+          + choose_veggie() + '\n' \
+          + choose_spread())
   
 #online message
 @client.event
@@ -51,7 +53,7 @@ async def on_ready():
 
 @client.event
 async def on_message(message):
-  global bread_count, meat_count, cheese_count, veggies_count, spread_count
+  global bread_count, meat_count, cheese_count, veggie_count, spread_count
   
   #if send message by bot, do nothing
   if message.author == client.user:
@@ -74,20 +76,10 @@ async def on_message(message):
       bread_count = 0
       meat_count = 0
       cheese_count = 0
-      veggies_count = 0
+      veggie_count = 0
       spread_count = 0
-    await message.channel.send(bread_count+meat_count+cheese_count+veggies_count+spread_count)
-    await reaction_msg.add_reaction('🍞')
-    bread_count = 1
-    await reaction_msg.add_reaction('🥩')
-    meat_count = 1
-    await reaction_msg.add_reaction('🧀')
-    cheese_count = 1
-    await reaction_msg.add_reaction('🥬')
-    veggies_count = 1
-    await reaction_msg.add_reaction('🍅')
-    spread_count = 1
-    await message.channel.send(bread_count+meat_count+cheese_count+veggies_count+spread_count)
+    for emoji in reactions: 
+      await reaction_msg.add_reaction(emoji)
 
   if message.content.startswith('>randomize'):
     await message.channel.send(":sandwich: here's your random sandwich!\n \n" + make_sandwich())
@@ -100,16 +92,33 @@ async def on_message(message):
       
 @client.event
 async def on_reaction_add(reaction, user):
+  global bread_count, meat_count, cheese_count, veggie_count, spread_count
   channel = reaction.message.channel    
-  if 'react' in reaction.message.content and reaction.emoji == '🍞' and bread_count != 0:
-    await channel.send(choose_bread())
-  if 'react' in reaction.message.content and reaction.emoji == '🥩' and meat_count != 0:
-    await channel.send(choose_meat())
-  if 'react' in reaction.message.content and reaction.emoji == '🧀' and cheese_count != 0:
-    await channel.send(choose_cheese())
-  if 'react' in reaction.message.content and reaction.emoji == '🥬' and veggies_count != 0:
-    await channel.send(choose_veggies())
-  if 'react' in reaction.message.content and reaction.emoji == '🍅' and spread_count != 0:
-    await channel.send(choose_spreads())
+  
+  if 'react to select' in reaction.message.content and reaction.emoji == '🍞':
+    if bread_count == 0:
+      bread_count = 1
+    else:
+      await channel.send(choose_bread())
+  if 'react to select' in reaction.message.content and reaction.emoji == '🥩': 
+    if meat_count == 0:
+      meat_count = 1
+    else:
+      await channel.send(choose_meat())
+  if 'react to select' in reaction.message.content and reaction.emoji == '🧀':
+    if cheese_count == 0:
+      cheese_count = 1
+    else:
+      await channel.send(choose_bread())
+  if 'react to select' in reaction.message.content and reaction.emoji == '🥬':
+    if veggie_count == 0:
+      veggie_count = 1
+    else:
+      await channel.send(choose_veggie())
+  if 'react to select' in reaction.message.content and reaction.emoji == '🍅':
+    if spread_count == 0:
+      spread_count = 1
+    else:
+      await channel.send(choose_spread())
     
 client.run(os.environ['TOKEN'])
