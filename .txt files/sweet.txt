@@ -1,0 +1,7 @@
+''**peanut butter & jelly sandwich**:\n:bread: white bread\n:grapes: grape jelly\n:peanuts: peanut butter'
+        '**strawberry sando**:\n:bread: shokupan (japanese milk bread), no crust\n:icecream: whipped cream\n:strawberry: strawberries\n:dagger: slice diagonally'
+        '**fruit sando**:\n:bread: shokupan (japanese milk bread), no crust\n:icecream: whipped cream\n:kiwi: strawberry, orange, kiwi\n:dagger: slice diagonally'
+        '**the elvis**:\n:bread: white bread\n:banana: toasted banana slices\n:peanuts: peanut butter\n:bacon: bacon\n:dagger: slice diagonally'
+        '**raspberry marshmallow**:\n:bread: toasted sourdough bread\n:strawberry: raspberries\n:lollipop: melted white chocolate & marshmallow\n:coconut: coconut oil'    
+        '**peanut butter-nutella**:\n:bread: white bread\n:strawberry: strawberries, banana slices\n:chocolate_bar: nutella\n:peanuts: peanut butter'
+        '**chocolate french toast**:\n:bread: cinnamon french toast\n:banana: banana slices\n:chocolate_bar: nutella\n:honey_pot: maple syrup\n:salt: powdered sugar'
