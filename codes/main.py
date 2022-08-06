@@ -2,7 +2,7 @@ import discord
 import random
 import os
 
-# ----------------------------------------------------------------------------------------------------
+# ---------------------------------------------------------------------------------------
 
 bread_count = 0
 meat_count = 0
@@ -13,17 +13,27 @@ reactions = ['🍞', '🥩', '🧀', '🥬', '🍅']
 
 client = discord.Client()
 
-# ----------------------------------------------------------------------------------------------------
+# ---------------------------------------------------------------------------------------
 
-bread = [ 'artisan roll', 'bagel', 'baguette', 'biscuit', 'brioche', 'brown bread', 'challah', 'ciabatta', 'cornbread', 'croissant', 'english muffin', 'focaccia', 'grissini', 'hawaiian roll', 'hoagie roll', 'potato bread', 'rye bread', 'multi-grain bread', 'pumpernickel', 'smoked salmon', 'sourdough bread', 'white bread', 'whole wheat bread']
+bread = []
+with open('bread.txt') as b:
+  bread = [line.rstrip() for line in b]
+  
+meat = []
+with open('meat.txt') as m:
+  meat = [line.rstrip() for line in m]
+  
+cheese = []
+with open('cheese.txt') as c:
+  cheese = [line.rstrip() for line in c]
 
-meat = ['bacon', 'black forest ham', 'bologna sausage', 'buffalo chicken', 'cha lua', 'grilled chicken breast', 'honey ham', 'meatballs', 'pepperoni', 'pulled pork' 'roast beef', 'shredded chicken', 'steak', 'tuna', 'tuna', 'turkey salami','turkey breast']
+veggie = []
+with open('veggie.txt') as v:
+  veggie = [line.rstrip() for line in v]
 
-cheese = ['american cheese', 'brie', 'cheddar', 'gouda', 'havarti', 'parmesan', 'pepper jack', 'provolone', 'swiss', 'mozzarella']
-
-veggie = ['basil', 'coleslaw', 'diced celery', 'jalepeno' 'pickles', 'lettuce', 'olives', 'red onions', 'red peppers', 'sauteéd mushrooms', 'shredded carrots', 'sliced cucmbers', 'spinach', 'white onions','tomatoes']
-
-spreads = ['blue cheese dressing', 'guacamole', 'honey mustard', 'hot sauce', 'hummus', 'mayonnaise', 'mustard', 'ranch', 'smoky bbq', 'spicy mayo', 'sweet onion dip', 'ketchup']
+spreads = []
+with open('spreads.txt') as s:
+  spreads = [line.rstrip() for line in s]
 
 sweet = ['**peanut butter & jelly sandwich**:\n\
 :bread: white bread\n:grapes: grape jelly\n:peanuts: peanut butter',
@@ -40,7 +50,11 @@ sweet = ['**peanut butter & jelly sandwich**:\n\
         '**chocolate french toast**:\n\
 :bread: cinnamon french toast\n:banana: banana slices\n:chocolate_bar: nutella\n:honey_pot: maple syrup\n:salt: powdered sugar']
 
-# ----------------------------------------------------------------------------------------------------
+#sweet = []
+#with open('sweet.txt') as sw:
+#  sweet = [line.rstrip() for line in sw]
+
+# ---------------------------------------------------------------------------------------
 
 def choose_bread():
   return (':bread: **bread:** ' + random.choice(bread))
@@ -67,13 +81,13 @@ def make_sandwich():
 def make_sweet():
   return (random.choice(sweet))
   
-# ----------------------------------------------------------------------------------------------------
+# ---------------------------------------------------------------------------------------
 
 @client.event
 async def on_ready():
   print('{0.user}'.format(client) + ' is now up and running! ヾ(^ ∇ ^)ノ') 
 
-# ----------------------------------------------------------------------------------------------------
+# ---------------------------------------------------------------------------------------
 
 @client.event
 async def on_message(message):
@@ -82,7 +96,7 @@ async def on_message(message):
   if message.author == client.user:
     return
     
-# ----------------------------------------------------------------------------------------------------
+# ---------------------------------------------------------------------------------------
     
   if message.content.startswith('>hello'):
     await message.channel.send('( ´ ▽ `)ﾉ  heyo!')
@@ -99,7 +113,7 @@ async def on_message(message):
   if message.content.startswith('>burger'):
     await message.channel.send("( ⋋_⋌ ):anger: we're healhier ya know 。。。")
 
-# ----------------------------------------------------------------------------------------------------
+# ---------------------------------------------------------------------------------------
     
   order_count = 0
   if message.content.startswith('>sandwich'):
@@ -121,7 +135,7 @@ async def on_message(message):
   if message.content.startswith('>sweet'):
     await message.channel.send(":sandwich: here's your ``sweet`` sandwich!\n \n" + make_sweet())
 
-# ----------------------------------------------------------------------------------------------------
+# ---------------------------------------------------------------------------------------
 
 @client.event
 async def on_reaction_add(reaction, user):
@@ -154,8 +168,8 @@ async def on_reaction_add(reaction, user):
     else:
       await channel.send(choose_spread())
 
-# ----------------------------------------------------------------------------------------------------
+# ---------------------------------------------------------------------------------------
 
 client.run(os.environ['TOKEN'])
 
-# ----------------------------------------------------------------------------------------------------
+# ---------------------------------------------------------------------------------------
