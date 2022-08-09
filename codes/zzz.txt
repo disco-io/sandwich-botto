@@ -1,11 +1,13 @@
 ideas for the future of sandwich botto! :
 
 - allow users to select more than 1 of each item
+- allow users to input their own items for generation
 - types of sandwich: breakfast
 - types of "meat": vegan/vegetarian
 - save option for users to save their favorite combinations
 - premade sandwich generator
 - world's most popular sandwiches leaderboard
+- sandwich puns / fun facts / history lessons
 - more user-botto text commands c:
 
 completed!
