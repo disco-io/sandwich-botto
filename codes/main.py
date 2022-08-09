@@ -120,6 +120,21 @@ async def on_message(message):
   if message.content.startswith('>sweet'):
     await message.channel.send(":sandwich: here's your ``sweet`` sandwich!\n \n" + make_sweet())
 
+  if message.content.startswith('>inputbread'):
+    await message.channel.send(":memo: please input your :bread: ``breads`` separated by ``commas``.")
+    
+  if message.content.startswith('>inputmeat'):
+    await message.channel.send(":memo: please input your :cut_of_meat: ``meats`` separated by ``commas``")
+    
+  if message.content.startswith('>inputcheese'):
+    await message.channel.send(":memo: please input your :cheese: ``cheeses`` separated by ``commas``.")
+    
+  if message.content.startswith('>inputveggie'):
+    await message.channel.send(":memo: please input your :leafy_green: ``veggies`` separated by ``commas``.")
+    
+  if message.content.startswith('>inputspread'):
+    await message.channel.send(":memo: please input your :tomato: ``spreads`` separated by ``commas``.")
+
 # ---------------------------------------------------------------------------------------
 
 @client.event
@@ -155,14 +170,11 @@ async def on_reaction_add(reaction, user):
 
 # ---------------------------------------------------------------------------------------
 
-@client.event
-async def on_reaction_remove(payload):
-    if payload.emoji.name == "👎":
-            channel = reaction.message.channel 
-            message = await channel.fetch_message(payload.message_id)
-            reaction = get(message.reactions, emoji=payload.emoji.name)
-            if reaction and reaction.count > 0:
-                await message.delete()
+user_bread = []
+user_meat = []
+user_cheese = []
+user_veggie = []
+user_spread = []
 
 # ---------------------------------------------------------------------------------------
 
