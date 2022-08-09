@@ -35,24 +35,9 @@ spreads = []
 with open('spreads.txt') as s:
   spreads = [line.rstrip() for line in s]
 
-sweet = ['**peanut butter & jelly sandwich**:\n\
-:bread: white bread\n:grapes: grape jelly\n:peanuts: peanut butter',
-        '**strawberry sando**:\n\
-:bread: shokupan (japanese milk bread), no crust\n:icecream: whipped cream\n:strawberry: strawberries\n:dagger: slice diagonally', 
-        '**fruit sando**:\n\
-:bread: shokupan (japanese milk bread), no crust\n:icecream: whipped cream\n:kiwi: strawberry, orange, kiwi\n:dagger: slice diagonally',
-        '**the elvis**:\n\
-:bread: white bread\n:banana: toasted banana slices\n:peanuts: peanut butter\n:bacon: bacon\n:dagger: slice diagonally',
-        '**raspberry marshmallow**:\n\
-:bread: toasted sourdough bread\n:strawberry: raspberries\n:lollipop: melted white chocolate & marshmallow\n:coconut: coconut oil',       
-        '**peanut butter-nutella**:\n\
-:bread: white bread\n:strawberry: strawberries, banana slices\n:chocolate_bar: nutella\n:peanuts: peanut butter',
-        '**chocolate french toast**:\n\
-:bread: cinnamon french toast\n:banana: banana slices\n:chocolate_bar: nutella\n:honey_pot: maple syrup\n:salt: powdered sugar']
-
-#sweet = []
-#with open('sweet.txt') as sw:
-#  sweet = [line.rstrip() for line in sw]
+sweet = []
+with open('sweet.txt') as sw:
+  sweet = [line.rstrip() for line in sw]
 
 # ---------------------------------------------------------------------------------------
 
@@ -167,6 +152,17 @@ async def on_reaction_add(reaction, user):
       spread_count = 1
     else:
       await channel.send(choose_spread())
+
+# ---------------------------------------------------------------------------------------
+
+@client.event
+async def on_reaction_remove(payload):
+    if payload.emoji.name == "👎":
+            channel = reaction.message.channel 
+            message = await channel.fetch_message(payload.message_id)
+            reaction = get(message.reactions, emoji=payload.emoji.name)
+            if reaction and reaction.count > 0:
+                await message.delete()
 
 # ---------------------------------------------------------------------------------------
 
