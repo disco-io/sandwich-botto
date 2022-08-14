@@ -1,7 +1,6 @@
-ideas for the future of sandwich botto! :
+ideas for the future of sandwich botto :
 
 - allow users to select more than 1 of each item
-- allow users to input their own items for generation
 - types of sandwich: breakfast
 - types of "meat": vegan/vegetarian
 - save option for users to save their favorite combinations
@@ -13,4 +12,5 @@ ideas for the future of sandwich botto! :
 completed!
 
 - allow users to simply react to the toppings they want
+- allow users to input their own items for generation
 - types of sandwich: sweet
