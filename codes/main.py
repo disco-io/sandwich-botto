@@ -28,9 +28,9 @@ with open('cheese.txt') as c:
 veggie = []
 with open('veggie.txt') as v:
   veggie = [line.rstrip() for line in v]
-spreads = []
+spread = []
 with open('spreads.txt') as s:
-  spreads = [line.rstrip() for line in s]
+  spread = [line.rstrip() for line in s]
 sweet = []
 with open('sweet.txt') as sw:
   sweet = [line.rstrip() for line in sw]
@@ -82,15 +82,30 @@ def delete_bread(index):
 # ---------------------------------------------------------------------------------------
 
 def choose_bread():
-  return (':bread: **bread:** ' + random.choice(bread))
+  boptions = bread
+  if "bread" in db.keys():
+    boptions = boptions + db["bread"]
+  return (':bread: **bread:** ' + random.choice(boptions))
 def choose_meat():
-  return (':cut_of_meat: **meat:** ' + random.choice(meat))
+  moptions = meat
+  if "meat" in db.keys():
+    moptions = moptions + db["meat"]
+  return (':cut_of_meat: **meat:** ' + random.choice(moptions))
 def choose_cheese():
-  return (':cheese: **cheese:** ' + random.choice(cheese))
+  coptions = cheese
+  if "cheese" in db.keys():
+    coptions = coptions + list(db["cheese"])
+  return (':cheese: **cheese:** ' + random.choice(coptions))
 def choose_veggie():
-  return (':leafy_green: **veggie:** ' + random.choice(veggie))
+  voptions = veggie
+  if "veggie" in db.keys():
+    voptions = voptions + db["veggie"]
+  return (':leafy_green: **veggie:** ' + random.choice(voptions))
 def choose_spread():
-    return (':tomato: **spread:** ' + random.choice(spreads))
+  soptions = spread
+  if "spread" in db.keys():
+    soptions = soptions + db["spread"]
+  return (':tomato: **spread:** ' + random.choice(soptions))
   
 def make_sandwich():
   return (choose_bread() + '\n' \
@@ -151,16 +166,11 @@ async def on_message(message):
     for emoji in reactions: 
       await reaction_msg.add_reaction(emoji)
 
-  if msg.startswith('>randomize'):
+  if msg.startswith('>random'):
     await message.channel.send(":sandwich: here's your ``random`` sandwich!\n \n" + make_sandwich())
     
   if msg.startswith('>sweet'):
     await message.channel.send(":sandwich: here's your ``sweet`` sandwich!\n \n" + make_sweet())
-
-  global bread
-  options = bread
-  if "bread" in db.keys():
-    options = options + db["bread"]
 
   if msg.startswith('>addbread'):
     await message.channel.send('( ´ ᵕ `)" :warning: please **behave** with this function! if you are fooling around, please ``>delbread`` your input!')
@@ -191,6 +201,12 @@ async def on_message(message):
     input_spread = message.content.split('>addspread ', 1)[1]
     update_spread(input_spread)
     await message.channel.send(input_spread + ' has been added to the spread database!')
+
+  if msg.startswith('>breadlist'):
+    bread = []
+    if "bread" in db.keys():
+      bread = db["bread"]
+    await message.channel.send(bread)
     
   if msg.startswith('>delbread'):
     bread = []
