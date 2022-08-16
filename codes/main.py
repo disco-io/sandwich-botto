@@ -207,27 +207,27 @@ async def on_message(message):
     boptions = bread
     if "bread" in db.keys():
       boptions = boptions + list(db["bread"])
-    await message.channel.send(boptions)
+    await message.channel.send(sorted(boptions))
   if msg.startswith('>meatlist'):
     moptions = meat
     if "meat" in db.keys():
       moptions = moptions + list(db["meat"])
-    await message.channel.send(meat)
+    await message.channel.send(sorted(moptions))
   if msg.startswith('>cheeselist'):
     coptions = cheese
     if "cheese" in db.keys():
       coptions = coptions + list(db["cheese"])
-    await message.channel.send(coptions)
+    await message.channel.send(sorted(coptions))
   if msg.startswith('>veggielist'):
     voptions = veggie
     if "veggie" in db.keys():
       veggie = voptions + list(db["veggie"])
-    await message.channel.send(veggie)
+    await message.channel.send(sorted(voptions))
   if msg.startswith('>spreadlist'):
     soptions = spread
     if "spread" in db.keys():
       soptions = soptions + list(db["spread"])
-    await message.channel.send(spread)
+    await message.channel.send(sorted(soptions))
     
   if msg.startswith('>delbread'):
     bread = []
