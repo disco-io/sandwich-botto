@@ -84,12 +84,12 @@ def delete_bread(index):
 def choose_bread():
   boptions = bread
   if "bread" in db.keys():
-    boptions = boptions + db["bread"]
+    boptions = boptions + list(db["bread"])
   return (':bread: **bread:** ' + random.choice(boptions))
 def choose_meat():
   moptions = meat
   if "meat" in db.keys():
-    moptions = moptions + db["meat"]
+    moptions = moptions + list(db["meat"])
   return (':cut_of_meat: **meat:** ' + random.choice(moptions))
 def choose_cheese():
   coptions = cheese
@@ -99,12 +99,12 @@ def choose_cheese():
 def choose_veggie():
   voptions = veggie
   if "veggie" in db.keys():
-    voptions = voptions + db["veggie"]
+    voptions = voptions + list(db["veggie"])
   return (':leafy_green: **veggie:** ' + random.choice(voptions))
 def choose_spread():
   soptions = spread
   if "spread" in db.keys():
-    soptions = soptions + db["spread"]
+    soptions = soptions + list(db["spread"])
   return (':tomato: **spread:** ' + random.choice(soptions))
   
 def make_sandwich():
@@ -128,6 +128,7 @@ async def on_ready():
 @client.event
 async def on_message(message):
   global bread_count, meat_count, cheese_count, veggie_count, spread_count
+  global bread, meat, cheese, veggie, spread
   msg = message.content
   
   if message.author == client.user:
@@ -203,10 +204,30 @@ async def on_message(message):
     await message.channel.send(input_spread + ' has been added to the spread database!')
 
   if msg.startswith('>breadlist'):
-    bread = []
+    boptions = bread
     if "bread" in db.keys():
-      bread = db["bread"]
-    await message.channel.send(bread)
+      boptions = boptions + list(db["bread"])
+    await message.channel.send(boptions)
+  if msg.startswith('>meatlist'):
+    moptions = meat
+    if "meat" in db.keys():
+      moptions = moptions + list(db["meat"])
+    await message.channel.send(meat)
+  if msg.startswith('>cheeselist'):
+    coptions = cheese
+    if "cheese" in db.keys():
+      coptions = coptions + list(db["cheese"])
+    await message.channel.send(cheese)
+  if msg.startswith('>veggielist'):
+    voptions = veggie
+    if "veggie" in db.keys():
+      veggie = voptions + list(db["veggie"])
+    await message.channel.send(veggie)
+  if msg.startswith('>spreadlist'):
+    soptions = spread
+    if "spread" in db.keys():
+      soptions = soptions + list(db["spread"])
+    await message.channel.send(spread)
     
   if msg.startswith('>delbread'):
     bread = []
