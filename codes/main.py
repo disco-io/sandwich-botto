@@ -1,7 +1,7 @@
 import discord
 import random
 import os
-from replit import db  
+from replit import db
 
 # ---------------------------------------------------------------------------------------
 
@@ -217,7 +217,7 @@ async def on_message(message):
     coptions = cheese
     if "cheese" in db.keys():
       coptions = coptions + list(db["cheese"])
-    await message.channel.send(cheese)
+    await message.channel.send(coptions)
   if msg.startswith('>veggielist'):
     voptions = veggie
     if "veggie" in db.keys():
