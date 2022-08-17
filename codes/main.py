@@ -73,10 +73,10 @@ def update_spread(input_spread):
   else:
     db["spread"] = [input_spread]
     
-def delete_bread(index):
+def delete_bread(item):
   bread = db["bread"]
-  if len(bread) > index:
-    del bread[index]
+  if item in bread:
+    del bread[str(item)]
   db["bread"] = bread
   
 # ---------------------------------------------------------------------------------------
@@ -230,12 +230,15 @@ async def on_message(message):
     await message.channel.send(sorted(soptions))
     
   if msg.startswith('>delbread'):
+    await message.channel.send('( ´ ᵕ `)" :warning: please **behave** with this function! if you are fooling around, please ``>delbread`` your input!')
     bread = []
     if "bread" in db.keys():
-      index = int(message.content.split('>delbread',1)[1])
-      delete_bread(index)
+      item = message.content.split('>delbread ', 1)[1]
+      delete_bread(item)
       bread = db["bread"]
-    await message.channel.send(bread)
+      await message.channel.send(item + " has been removed from the bread database!")
+    else:
+      await message.channel.send(item + " does not exist in this database. view the all breads by typing >breadlist")
 
 # ----------------------------UNDER CONSTRUCTION-----------------------------------------
     
