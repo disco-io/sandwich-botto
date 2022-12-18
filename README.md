@@ -1,5 +1,7 @@
 # 🥪 sandwich botto#1408
 
+Click here to use: [sandwich botto invite link](https://discord.com/api/oauth2/authorize?client_id=1002606550973698148&permissions=2419452944&scope=bot)
+
 sandwich botto is the first Discord bot I made for fun over the summer of 2022. Its purpose is to randomly generate sandwiches for users (like me) who don't know what to have for lunch... :) 
 
 Here is a list of things the bot can do right now!
