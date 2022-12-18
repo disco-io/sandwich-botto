@@ -288,15 +288,15 @@ async def on_message(message):
       await message.channel.send("i'm still under development, but here's what i got so far! \n \n \
       🥪 ``>sandwich`` build your own sandwich using a variety of randomly generated ingredients. \n \
       🔀 ``>random`` randomly generate a sandwich of all types of ingredients. \n \
-      🍭 ``>sweet`` are you an enjoyer of sweet sandwiches? i'll show you some popular recipes \n \
+      🍭 ``>sweet`` are you an enjoyer of sweet sandwiches? i'll show you some popular recipes! \n \
       🍞 ``>breadlist`` my database of breads. \n \
       🥩 ``>meatlist`` my database of meats. \n \
       🧀 ``>cheeselist`` my database of cheeses. \n \
       🍅 ``>spreadlist`` my database list of spreads. \n \
       🥬 ``>veggielist`` my database of veggies. \n \
-      ❓ ``>help`` quick introduction + assistance! \n \
-      💻 ``>github`` my repository. \n \
-      📚 ``>commands`` list of all the commands i respond to")
+      ❓ ``>help`` a quick introduction + assistance! \n \
+      💻 ``>github`` my repository! \n \
+      📚 ``>commands`` list of all the commands i respond to!")
     
 # ---------------------------------------------------------------------------------------
 
