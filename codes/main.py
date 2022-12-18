@@ -2,6 +2,7 @@ import discord
 import random
 import os
 from replit import db
+from keep_alive import keep_alive
 
 # ---------------------------------------------------------------------------------------
 
@@ -11,6 +12,8 @@ cheese_count = 0
 veggie_count = 0
 spread_count = 0
 reactions = ['🍞', '🥩', '🧀', '🥬', '🍅']
+give_user = ""
+give_fill = "" 
 
 intents = discord.Intents.default()
 intents.message_content = True
@@ -128,6 +131,7 @@ async def on_ready():
 async def on_message(message):
   global bread_count, meat_count, cheese_count, veggie_count, spread_count
   global bread, meat, cheese, veggie, spread
+  global give_user, give_fill
   msg = message.content
   
   if message.author == client.user:
@@ -181,6 +185,13 @@ async def on_message(message):
     ``>5`` raspberry marshmallow \n \
     ``>6`` peanut butter & nutella \n \
     ``>7`` chocolate french toast")
+  
+  if msg.startswith('>give'):
+    await message.channel.send('what do you want to put in the sandwich? type your fillings like this: ``>fill [fillings]``')
+    give_user = msg.split(">give", 1)[1].strip()
+  if msg.startswith('>fill'):
+    give_fill = msg.split(">fill", 1)[1].strip() 
+    await message.channel.send('hey, ' + give_user + " ! you received a " + give_fill + " sandwich! enjoy! :sandwich:")
 
   if msg.startswith('>1'):
     await message.channel.send(':bread: white bread\n:grapes: grape jelly\n:peanuts: peanut butter')  
@@ -281,7 +292,7 @@ async def on_message(message):
 
   if message.content.startswith('>help'):
       await message.channel.send("hey there, friendly user! ( ´ ▽ `)ﾉ")
-      await message.channel.send("i am a discord bot made by ``disco#15665``. i can make you sandwiches. :sandwich:")
+      await message.channel.send("i am a discord bot made by ``disco#1565``. i can make you sandwiches. :sandwich:")
       await message.channel.send("type ``>commands`` to see what i can do!")
 
   if message.content.startswith('>commands'):
@@ -330,7 +341,10 @@ async def on_reaction_add(reaction, user):
       spread_count = 1
     else:
       await channel.send(choose_spread())
+  
+# ---------------------------------------------------------------------------------------
 
+keep_alive()
 client.run(os.environ['TOKEN'])
 
 # ---------------------------------------------------------------------------------------
