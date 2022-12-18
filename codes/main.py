@@ -12,7 +12,9 @@ veggie_count = 0
 spread_count = 0
 reactions = ['🍞', '🥩', '🧀', '🥬', '🍅']
 
-client = discord.Client()
+intents = discord.Intents.default()
+intents.message_content = True
+client = discord.Client(intents=intents)
 
 # ---------------------------------------------------------------------------------------
 
@@ -31,9 +33,6 @@ with open('veggie.txt') as v:
 spread = []
 with open('spreads.txt') as s:
   spread = [line.rstrip() for line in s]
-sweet = []
-with open('sweet.txt') as sw:
-  sweet = [line.rstrip() for line in sw]
 
 # ---------------------------------------------------------------------------------------
   
@@ -115,7 +114,7 @@ def make_sandwich():
           + choose_spread())
 
 def make_sweet():
-  return (random.choice(sweet))
+  return (sweet)
   
 # ---------------------------------------------------------------------------------------
 
@@ -171,7 +170,29 @@ async def on_message(message):
     await message.channel.send(":sandwich: here's your ``random`` sandwich!\n \n" + make_sandwich())
     
   if msg.startswith('>sweet'):
-    await message.channel.send(":sandwich: here's your ``sweet`` sandwich!\n \n" + make_sweet())
+    await message.channel.send(":sandwich: list of ``sweet`` sandwiches! \nwhich one do you want? type the number! \n \n \
+    ``>1`` peanut butter & jelly\n \
+    ``>2`` strawberry sando\n \
+    ``>3`` fruit sando\n \
+    ``>4`` the elvis \n \
+    ``>5`` raspberry marshmallow \n \
+    ``>6`` peanut butter & nutella \n \
+    ``>7`` chocolate french toast")
+
+  if msg.startswith('>1'):
+    await message.channel.send(':bread: white bread\n:grapes: grape jelly\n:peanuts: peanut butter')  
+  if msg.startswith('>2'):
+    await message.channel.send(':bread: shokupan (japanese milk bread), no crust\n:icecream: whipped cream\n:strawberry: strawberries\n:dagger: slice diagonally')
+  if msg.startswith('>3'):
+    await message.channel.send(':bread: shokupan (japanese milk bread), no crust\n:icecream: whipped cream\n:kiwi: strawberry, orange, kiwi\n:dagger: slice diagonally')
+  if msg.startswith('>4'):
+    await message.channel.send(':bread: white bread\n:banana: toasted banana slices\n:peanuts: peanut butter\n:bacon: bacon\n:dagger: slice diagonally')
+  if msg.startswith('>5'):
+    await message.channel.send(':bread: toasted sourdough bread\n:strawberry: raspberries\n:lollipop: melted white chocolate & marshmallow\n:coconut: coconut oil')
+  if msg.startswith('>6'):
+    await message.channel.send(':bread: white bread\n:strawberry: strawberries, banana slices\n:chocolate_bar: nutella\n:peanuts: peanut butter')
+  if msg.startswith('>7'):
+    await message.channel.send(':bread: cinnamon french toast\n:banana: banana slices\n:chocolate_bar: nutella\n:honey_pot: maple syrup\n:salt: powdered sugar')
 
   if msg.startswith('>addbread'):
     await message.channel.send('( ´ ᵕ `)" :warning: please **behave** with this function! if you are fooling around, please ``>delbread`` your input!')
