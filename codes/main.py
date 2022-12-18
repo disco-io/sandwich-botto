@@ -150,6 +150,9 @@ async def on_message(message):
   if msg.startswith('>burger'):
     await message.channel.send("( ⋋_⋌ ):anger: we're healhier ya know 。。。")
 
+  if msg.startswith('>github'):
+    await message.channel.send("a star or a follow would be appreciated! :star: \nhttps://github.com/disco-io/sandwich-botto")
+
 # ---------------------------------------------------------------------------------------
     
   order_count = 0
@@ -274,6 +277,27 @@ async def on_message(message):
   if message.content.startswith('>inputspread'):
     await message.channel.send(":memo: please input your :tomato: ``spreads`` separated by ``commas``.")
 
+# ----------------------------REMEMBER TO UPDATE-----------------------------------------
+
+  if message.content.startswith('>help'):
+      await message.channel.send("hey there, friendly user! ( ´ ▽ `)ﾉ")
+      await message.channel.send("i am a discord bot made by ``disco#15665``. i can make you sandwiches. :sandwich:")
+      await message.channel.send("type ``>commands`` to see what i can do!")
+
+  if message.content.startswith('>commands'):
+      await message.channel.send("i'm still under development, but here's what i got so far! \n \n \
+      🥪 ``>sandwich`` build your own sandwich using a variety of randomly generated ingredients. \n \
+      🔀 ``>random`` randomly generate a sandwich of all types of ingredients. \n \
+      🍭 ``>sweet`` are you an enjoyer of sweet sandwiches? i'll show you some popular recipes \n \
+      🍞 ``>breadlist`` my database of breads. \n \
+      🥩 ``>meatlist`` my database of meats. \n \
+      🧀 ``>cheeselist`` my database of cheeses. \n \
+      🍅 ``>spreadlist`` my database list of spreads. \n \
+      🥬 ``>veggielist`` my database of veggies. \n \
+      ❓ ``>help`` quick introduction + assistance! \n \
+      💻 ``>github`` my repository. \n \
+      📚 ``>commands`` list of all the commands i respond to")
+    
 # ---------------------------------------------------------------------------------------
 
 @client.event
@@ -306,8 +330,6 @@ async def on_reaction_add(reaction, user):
       spread_count = 1
     else:
       await channel.send(choose_spread())
-
-# ---------------------------------------------------------------------------------------
 
 client.run(os.environ['TOKEN'])
 
