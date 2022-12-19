@@ -14,6 +14,7 @@ spread_count = 0
 reactions = ['🍞', '🥩', '🧀', '🥬', '🍅']
 give_user = ""
 give_fill = ""
+vowels = "AaEeIiOoUu"
 
 intents = discord.Intents.default()
 intents.message_content = True
@@ -157,7 +158,7 @@ async def on_ready():
 async def on_message(message):
   global bread_count, meat_count, cheese_count, veggie_count, spread_count
   global bread, meat, cheese, veggie, spread
-  global give_user, give_fill
+  global give_user, give_fill, vowel
   msg = message.content
 
   if message.author == client.user:
@@ -227,8 +228,12 @@ async def on_message(message):
   if msg.startswith('>fill'):
     give_fill = msg.split(">fill", 1)[1].strip()
     if give_user != " " and give_fill != " ":
-      await message.channel.send('hey, ' + give_user + " ! you received a " +
-                                 give_fill + " sandwich! enjoy! :sandwich:")
+      if (give_fill[0] in vowels):
+        await message.channel.send('hey, ' + give_user + " ! you received an " +
+                                   give_fill + " sandwich! enjoy! :sandwich:")
+      else:
+        await message.channel.send('hey, ' + give_user + " ! you received a " +
+                                   give_fill + " sandwich! enjoy! :sandwich:")
     give_user = " "
     give_fill = " "
 
